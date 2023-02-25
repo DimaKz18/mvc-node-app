@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<h1>Create new user</h1>
+<form action="/users/create" method="POST">
+    <label>Enter username</label>
+    <input name="username" /><br><br>
+    <input type="submit" value="Отправить" />
+</form>
+<h1>Users</h1>
+{{#each users}}
+    <div style="border: 1px solid green; padding: 15px">
+        <h3>Username - {{this.username}}</h3>
+        <button onclick="deleteUser({{this.id}})">
+            Delete
+        </button>
+    </div>
+{{/each}}
+<script>
+    function deleteUser(id)  {
+        fetch(`http://localhost:5001/users/delete?id=${id}`, {
+            method: 'DELETE'
+        }).then(() => window.location.reload())
+    }
+</script>
+</body>
+<html>
